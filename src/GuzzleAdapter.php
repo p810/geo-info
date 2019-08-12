@@ -35,7 +35,7 @@ class GuzzleAdapter implements ClientAdapterInterface
     {
         try {
             $response = $this->client->get($uri);
-            $body = json_decode((string) $response->getBody(), true, JSON_NUMERIC_CHECK);
+            $body = json_decode((string) $response->getBody(), true);
 
             if ($body === null) {
                 throw new GeocoderException('Received an empty response from the API');
