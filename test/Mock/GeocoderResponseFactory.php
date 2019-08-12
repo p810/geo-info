@@ -13,14 +13,14 @@ class GeocoderResponseFactory
     {
         return new GeocoderResponse([
             'city' => 'Birmingham',
-            'cityCode' => null,
-            'community' => null,
+            'cityCode' => '',
+            'community' => '',
             'country' => 'US',
             'county' => 'Shelby',
             'countyCode' => '117',
             'latitude' => 33.3813,
             'longitude' => -86.7046,
-            'nearby' => null,
+            'nearby' => '',
             'postalCode' => '35242',
             'state' => 'Alabama',
             'stateCode' => 'AL'
@@ -38,8 +38,8 @@ class GeocoderResponseFactory
     {   
         return new GeocoderResponse([
             'city' => 'Birmingham',
-            'cityCode' => null,
-            'community' => null,
+            'cityCode' => '',
+            'community' => '',
             'country' => 'US',
             'county' => 'Shelby',
             'countyCode' => '117',
@@ -47,14 +47,14 @@ class GeocoderResponseFactory
             'longitude' => -86.7046,
             'nearby' => [[
                 'city' => 'Birmingham',
-                'cityCode' => null,
-                'community' => null,
+                'cityCode' => '',
+                'community' => '',
                 'country' => 'US',
                 'county' => 'Shelby',
                 'countyCode' => '117',
                 'latitude' => 33.3813,
                 'longitude' => -86.7046,
-                'nearby' => null,
+                'nearby' => '',
                 'postalCode' => '35242',
                 'state' => 'Alabama',
                 'stateCode' => 'AL'
