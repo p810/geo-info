@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace p810\GeoInfo;
 
 use function is_array;
+use function array_map;
 use function json_encode;
 use function array_key_exists;
 

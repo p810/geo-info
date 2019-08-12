@@ -8,7 +8,6 @@ use \GuzzleHttp\Client;
 use \GuzzleHttp\Exception\TransferException;
 
 use function json_decode;
-use function array_key_exists;
 
 class GuzzleAdapter implements ClientAdapterInterface
 {
