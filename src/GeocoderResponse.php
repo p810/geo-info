@@ -28,7 +28,7 @@ class GeocoderResponse
         }
 
         $this->data = array_map(function ($value) {
-            if ($value == '') {
+            if ($value === '') {
                 return null;
             }
 
