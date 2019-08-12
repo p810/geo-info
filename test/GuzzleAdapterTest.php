@@ -8,14 +8,9 @@ use p810\GeoInfo\{GeocoderResponse, GeocoderException};
 
 class GuzzleAdapterTest extends TestCase
 {
-    public function setUp(): void
-    {
-        $this->factory = GuzzleAdapterFactory::getInstance();
-    }
-
     public function testClientReturnsGeocoderResponse()
     {
-        $client = $this->factory->withDefaultResponse();
+        $client = GuzzleAdapterFactory::getClient();
         $response = $client->get('Birmingham, AL, US');
 
         $this->assertInstanceOf(GeocoderResponse::class, $response);
@@ -23,27 +18,27 @@ class GuzzleAdapterTest extends TestCase
 
     public function testClientThrowsGeocoderExceptionWithErrorMessage()
     {
-        $client = $this->factory->withErrorResponse();
+        $client = GuzzleAdapterFactory::getClient();
         $this->expectException(GeocoderException::class);
         $this->expectExceptionMessage('The requested location could not be found.');
 
         $client->get('DoesNotExist, NO, WAY');
     }
 
-    public function testClientThrowsGeocoderExceptionFromNetworkError()
+    public function testClientThrowsGeocoderExceptionWhenResponseIsEmpty()
     {
-        $client = $this->factory->withNetworkErrorException();
+        $client = GuzzleAdapterFactory::getClient();
         $this->expectException(GeocoderException::class);
-        $this->expectExceptionMessage('There was an error communicating with the server');
+        $this->expectExceptionMessage('Received an empty response from the API');
 
         $client->get('/');
     }
 
-    public function testClientThrowsGeocoderExceptionWhenResponseIsEmpty()
+    public function testClientThrowsGeocoderExceptionFromNetworkError()
     {
-        $client = $this->factory->withEmptyResponse();
+        $client = GuzzleAdapterFactory::getClient();
         $this->expectException(GeocoderException::class);
-        $this->expectExceptionMessage('Received an empty response from the API');
+        $this->expectExceptionMessage('There was an error communicating with the server');
 
         $client->get('/');
     }

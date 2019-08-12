@@ -15,6 +15,9 @@ use function json_encode;
  */
 class GuzzleAdapterFactory
 {
+    /**
+     * @var array<string,mixed>
+     */
     const RESPONSE_BODY_NORMAL = [
         'city' => 'Birmingham',
         'cityCode' => null,
@@ -30,66 +33,52 @@ class GuzzleAdapterFactory
         'stateCode' => 'AL'
     ];
 
+    /**
+     * @var array<string,string>
+     */
     const RESPONSE_BODY_ERROR = [
         'error' => 'The requested location could not be found.'
     ];
 
-    private static $instance = null;
+    /**
+     * @var array<string,string>
+     */
+    const REQUEST_HEADERS_DEFAULT = [
+        'Content-Type' => 'application/json'
+    ];
 
-    public static function getInstance(): GuzzleAdapterFactory
+    /**
+     * @var \p810\GeoInfo\GuzzleAdapter
+     */
+    private static $client = null;
+
+    /**
+     * @return \p810\GeoInfo\GuzzleAdapter
+     */
+    public static function getClient(): GuzzleAdapter
     {
-        if (! static::$instance) {
-            static::$instance = new GuzzleAdapterFactory();
+        if (! static::$client) {
+            static::$client = self::makeClient();
         }
 
-        return static::$instance;
+        return static::$client;
     }
 
-    private function __construct()
+    /**
+     * @return \p810\GeoInfo\GuzzleAdapter
+     */
+    private static function makeClient(): GuzzleAdapter
     {
-    }
-
-    private function getGuzzleAdapter(array $responses): GuzzleAdapter
-    {
-        $handler = new MockHandler($responses);
+        $handler = new MockHandler([
+            new Response(200, self::REQUEST_HEADERS_DEFAULT, json_encode(self::RESPONSE_BODY_NORMAL)),
+            new Response(500, self::REQUEST_HEADERS_DEFAULT, json_encode(self::RESPONSE_BODY_ERROR)),
+            new Response(500, self::REQUEST_HEADERS_DEFAULT, null),
+            new RequestException('There was an error communicating with the server', new Request('GET', '/'))
+        ]);
 
         return new GuzzleAdapter(new Client([
             'handler' => HandlerStack::create($handler),
             'http_errors' => false
         ]));
-    }
-
-    public function withDefaultResponse(): GuzzleAdapter
-    {
-        return $this->getGuzzleAdapter([
-            new Response(200, [
-                'Content-Type' => 'application/json'
-            ], json_encode(self::RESPONSE_BODY_NORMAL))
-        ]);
-    }
-
-    public function withErrorResponse(): GuzzleAdapter
-    {
-        return $this->getGuzzleAdapter([
-            new Response(500, [
-                'Content-Type' => 'application/json'
-            ], json_encode(self::RESPONSE_BODY_ERROR))
-        ]);
-    }
-
-    public function withNetworkErrorException(): GuzzleAdapter
-    {
-        return $this->getGuzzleAdapter([
-            new RequestException('There was an error communicating with the server', new Request('GET', '/'))
-        ]);
-    }
-
-    public function withEmptyResponse(): GuzzleAdapter
-    {
-        return $this->getGuzzleAdapter([
-            new Response(500, [
-                'Content-Type' => 'application/json'
-            ], null)
-        ]);
     }
 }
