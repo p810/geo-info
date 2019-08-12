@@ -41,10 +41,21 @@ class GeocoderResponseTest extends TestCase
     /**
      * @depends testGeocoderResponseReturnsLatLonAsFloat
      */
-    public function testGeocoderResponseReturnsEmptyFieldsAsNull(GeocoderResponse $response)
+    public function testGeocoderResponseReturnsEmptyFieldsAsNull(GeocoderResponse $response): GeocoderResponse
     {
         $this->assertNull($response->getCommunity());
         $this->assertNull($response->getCityCode());
+
+        return $response;
+    }
+
+    /**
+     * @depends testGeocoderResponseReturnsEmptyFieldsAsNull
+     */
+    public function testGeocoderResponseConversionMethods(GeocoderResponse $response)
+    {
+        $this->assertTrue(is_array($response->toArray()));
+        $this->assertNotNull(json_decode($response->toJson()));
     }
 
     public function testGeocoderResponseNearbyIsArrayOfGeocoderResponse()
@@ -60,13 +71,5 @@ class GeocoderResponseTest extends TestCase
 
         $this->assertEquals('Hello world!', $response->getError());
         $this->assertNull($response->getCity());
-    }
-
-    public function testGeocoderResponseConversions()
-    {
-        $response = GeocoderResponseFactory::getDefault();
-
-        $this->assertTrue(is_array($response->toArray()));
-        $this->assertNotNull(json_decode($response->toJson()));
     }
 }
