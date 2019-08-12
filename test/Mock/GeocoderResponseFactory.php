@@ -9,6 +9,9 @@ use p810\GeoInfo\GeocoderResponse;
  */
 class GeocoderResponseFactory
 {
+    /**
+     * @return \p810\GeoInfo\GeocoderResponse
+     */
     public static function getDefault(): GeocoderResponse
     {
         return new GeocoderResponse([
@@ -27,6 +30,9 @@ class GeocoderResponseFactory
         ]);
     }
 
+    /**
+     * @return \p810\GeoInfo\GeocoderResponse
+     */
     public static function withError(): GeocoderResponse
     {
         return new GeocoderResponse([
@@ -34,6 +40,9 @@ class GeocoderResponseFactory
         ]);
     }
 
+    /**
+     * @return \p810\GeoInfo\GeocoderResponse
+     */
     public static function withNearby(): GeocoderResponse
     {   
         return new GeocoderResponse([

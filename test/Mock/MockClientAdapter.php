@@ -9,6 +9,9 @@ use p810\GeoInfo\{GeocoderResponse, GeocoderException, ClientAdapterInterface};
  */
 class MockClientAdapter implements ClientAdapterInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function get(string $uri): GeocoderResponse
     {
         switch ($uri) {
