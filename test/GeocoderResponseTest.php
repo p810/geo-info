@@ -4,7 +4,6 @@ namespace p810\GeoInfo\Test;
 
 use PHPUnit\Framework\TestCase;
 use p810\GeoInfo\GeocoderResponse;
-use PHPUnit\Framework\Constraint\IsType;
 use p810\GeoInfo\Test\Mock\GeocoderResponseFactory;
 
 use function is_array;
