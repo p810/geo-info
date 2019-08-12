@@ -1,6 +1,7 @@
 {
     "name": "p810/geo-info",
     "description": "A PHP SDK for interacting with the GeoInfo API",
+    "license": "MIT",
     "authors": [
         {
             "name": "Payton Bice",

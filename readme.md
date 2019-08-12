@@ -44,3 +44,6 @@ $response->toJson(); //=> string(247) {"city": ...}
 - the API returned an error code
 
 If the API returns an error message it will be the exception's message. If the API was unreachable and you're using `p810\GeoInfo\GuzzleAdapter`, the message from a `GuzzleHttp\Exception\TransferException` will be used for the `GeocoderException`, and the `TransferException` will also be accessible via `getPrevious()`.
+
+## License
+This package is released under the [MIT License](https://github.com/p810/geo-info/blob/master/LICENSE).
