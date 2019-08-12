@@ -1,0 +1,23 @@
+{
+    "name": "p810/geo-info",
+    "description": "A PHP SDK for interacting with the GeoInfo API",
+    "authors": [
+        {
+            "name": "Payton Bice",
+            "email": "hellopayton@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "p810\\GeoInfo\\": "src/",
+            "p810\\GeoInfo\\Test\\": "test/"
+        }
+    },
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    }
+}
