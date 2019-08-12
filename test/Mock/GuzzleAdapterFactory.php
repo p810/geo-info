@@ -8,6 +8,8 @@ use GuzzleHttp\{Client, HandlerStack};
 use GuzzleHttp\Psr7\{Request, Response};
 use GuzzleHttp\Exception\RequestException;
 
+use function json_encode;
+
 /**
  * @codeCoverageIgnore
  */
